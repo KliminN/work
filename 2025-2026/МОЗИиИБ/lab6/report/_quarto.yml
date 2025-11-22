@@ -1,0 +1,38 @@
+project:
+  title: "Лабораторная работа 3"
+  output-dir: "_output"
+
+standalone: true
+self-contained: true
+
+lang: ru-RU
+number-sections: true
+toc: true
+toc-title: "Содержание"
+toc-depth: 2
+
+crossref:
+  lof-title: "Список иллюстраций"
+  lot-title: "Список таблиц"
+  lol-title: "Листинги"
+
+bibliography:
+  - bib/cite.bib
+csl: _resources/csl/gost-r-7-0-5-2008-numeric.csl
+
+format:
+  pdf:
+    pdf-engine: xelatex
+    mainfont: "Times New Roman"
+    fontsize: 12pt
+    linestretch: 1.5
+    documentclass: scrreprt
+    papersize: a4
+    babel-lang: russian
+    babel-otherlangs: english
+    include-in-header:
+      - file: _assets/preamble.tex
+  docx:
+    toc: true
+    number-sections: true
+    toc-depth: 2
