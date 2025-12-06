@@ -1,0 +1,110 @@
+function norm(a)
+    while length(a) > 1 && a[1] == 0
+        popfirst!(a)
+    end
+    return a
+end
+
+function str_to_big(s)
+    return [parse(Int, c) for c in s]
+end
+
+function big_to_str(a)
+    return join(a)
+end
+
+function big_add(a, b; base=10)
+    a = copy(a)
+    b = copy(b)
+
+    while length(a) < length(b)
+        pushfirst!(a, 0)
+    end
+    while length(b) < length(a)
+        pushfirst!(b, 0)
+    end
+
+    n = length(a)
+    k = 0
+    w = zeros(Int, n + 1)
+
+    for j in n:-1:1
+        s = a[j] + b[j] + k
+        w[j+1] = s % base
+        k = s ÷ base
+    end
+    w[1] = k
+    return norm(w)
+end
+
+function big_sub(a, b; base=10)
+    a = copy(a)
+    b = copy(b)
+
+    while length(b) < length(a)
+        pushfirst!(b, 0)
+    end
+
+    n = length(a)
+    k = 0
+    w = zeros(Int, n)
+
+    for j in n:-1:1
+        s = a[j] - b[j] + k
+        if s < 0
+            s += base
+            k = -1
+        else
+            k = 0
+        end
+        w[j] = s
+    end
+    return norm(w)
+end
+
+function big_mul(a, b; base=10)
+    a = copy(a)
+    b = copy(b)
+    n, m = length(a), length(b)
+
+    w = zeros(Int, n + m)
+
+    for j in m:-1:1
+        k = 0
+        for i in n:-1:1
+            s = a[i]*b[j] + w[i+j] + k
+            w[i+j] = s % base
+            k = s ÷ base
+        end
+        w[j] += k
+    end
+    return norm(w)
+end
+
+function big_divmod(a, b; base=10)
+    A = parse(BigInt, big_to_str(a))
+    B = parse(BigInt, big_to_str(b))
+    q = A ÷ B
+    r = A % B
+    return str_to_big(string(q)), str_to_big(string(r))
+end
+
+a = str_to_big("12345")
+b = str_to_big("678")
+
+println("a = ", big_to_str(a))
+println("b = ", big_to_str(b))
+
+println("\nСложение:")
+println(big_to_str(big_add(a,b)))
+
+println("\nВычитание:")
+println(big_to_str(big_sub(a,b)))
+
+println("\nУмножение:")
+println(big_to_str(big_mul(a,b)))
+
+println("\nДеление:")
+q, r = big_divmod(a, b)
+println("q = ", big_to_str(q))
+println("r = ", big_to_str(r))
