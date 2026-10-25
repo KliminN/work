@@ -1,0 +1,23 @@
+\usepackage{fontspec}
+
+% Основной шрифт
+\setmainfont{Times New Roman}[Script=Latin]
+\newfontfamily\cyrillicfont{Times New Roman}[Script=Cyrillic]
+
+% Безсерифный шрифт
+\setsansfont{Arial}[Script=Latin]
+\newfontfamily\cyrillicfontsf{Arial}[Script=Cyrillic]
+
+% Моноширинный шрифт
+\setmonofont{Courier New}[Script=Latin]
+\newfontfamily\cyrillicfonttt{Courier New}[Script=Cyrillic]
+
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+
+\usepackage{indentfirst}
+\usepackage{float}
+\floatplacement{figure}{H}
+\usepackage{geometry}
+\geometry{a4paper, left=3cm, right=2cm, top=2cm, bottom=2cm}
